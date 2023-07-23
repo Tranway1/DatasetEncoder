@@ -54,6 +54,24 @@ public class OrcWriterHelper {
 
     static final String NULL = "null";
 
+    public static boolean isValidNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static boolean isValidLong(String str) {
+        try {
+            Long.parseLong(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
     public static URI singleColumnBoolean(URI input) throws IOException {
         File output = genOutput(input, "ORC");
         if (output.exists())
@@ -115,7 +133,7 @@ public class OrcWriterHelper {
         while ((line = reader.readLine()) != null) {
             int row = batch.size++;
             line = line.trim();
-            if (line.isEmpty() || line.equals(NULL)) {
+            if (line.isEmpty() || line.equals(NULL) || (!isValidLong(line))) {
                 first.noNulls = false;
                 first.isNull[row] = true;
             } else {
@@ -155,7 +173,7 @@ public class OrcWriterHelper {
         while ((line = reader.readLine()) != null) {
             int row = batch.size++;
             line = line.trim();
-            if (line.isEmpty() || line.equals(NULL)) {
+            if (line.isEmpty() || line.equals(NULL) || (!isValidLong(line))) {
                 first.noNulls = false;
                 first.isNull[row] = true;
             } else {
@@ -235,7 +253,7 @@ public class OrcWriterHelper {
         while ((line = reader.readLine()) != null) {
             int row = batch.size++;
             line = line.trim();
-            if (line.isEmpty() || line.equals(NULL)) {
+            if (line.isEmpty() || line.equals(NULL) || (!isValidNumeric(line))) {
                 first.noNulls = false;
                 first.isNull[row] = true;
             } else {
@@ -275,7 +293,7 @@ public class OrcWriterHelper {
         while ((line = reader.readLine()) != null) {
             int row = batch.size++;
             line = line.trim();
-            if (line.isEmpty() || line.equals(NULL)) {
+            if (line.isEmpty() || line.equals(NULL) || (!isValidNumeric(line))) {
                 first.noNulls = false;
                 first.isNull[row] = true;
             } else {

@@ -126,6 +126,10 @@ public class ParquetWriterHelper {
 
         while ((line = reader.readLine()) != null) {
             String[] dataArray = line.trim().split(split);
+            for (int i=0;i<dataArray.length;i++){
+                if (dataArray[i].equals(""))
+                    dataArray[i]="0";
+            }
             List<String> data = Arrays.asList(dataArray);
             writer.write(data);
         }
@@ -134,6 +138,23 @@ public class ParquetWriterHelper {
         writer.close();
     }
 
+    public static boolean isValidNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static boolean isValidLong(String str) {
+        try {
+            Long.parseLong(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
     public static URI singleColumnBoolean(URI input) throws IOException {
         File output = genOutput(input, "PLAIN");
         if (output.exists())
@@ -179,9 +200,11 @@ public class ParquetWriterHelper {
         String line;
         List<String> holder = new ArrayList<>();
         while ((line = reader.readLine()) != null) {
-            holder.add(line.trim());
-            writer.write(holder);
-            holder.clear();
+            if (isValidLong(line.trim())) {
+                holder.add(line.trim());
+                writer.write(holder);
+                holder.clear();
+            }
         }
 
         reader.close();
@@ -210,9 +233,11 @@ public class ParquetWriterHelper {
         String line;
         List<String> holder = new ArrayList<>();
         while ((line = reader.readLine()) != null) {
-            holder.add(line.trim());
-            writer.write(holder);
-            holder.clear();
+            if (isValidLong(line.trim())) {
+                holder.add(line.trim());
+                writer.write(holder);
+                holder.clear();
+            }
         }
 
         reader.close();
@@ -241,9 +266,11 @@ public class ParquetWriterHelper {
         String line;
         List<String> holder = new ArrayList<>();
         while ((line = reader.readLine()) != null) {
-            holder.add(line.trim());
-            writer.write(holder);
-            holder.clear();
+            if (isValidLong(line.trim())) {
+                holder.add(line.trim());
+                writer.write(holder);
+                holder.clear();
+            }
         }
 
         reader.close();
@@ -298,9 +325,11 @@ public class ParquetWriterHelper {
         String line;
         List<String> holder = new ArrayList<>();
         while ((line = reader.readLine()) != null) {
-            holder.add(line.trim());
-            writer.write(holder);
-            holder.clear();
+            if (isValidNumeric(line.trim())) {
+                holder.add(line.trim());
+                writer.write(holder);
+                holder.clear();
+            }
         }
 
         reader.close();
@@ -326,9 +355,11 @@ public class ParquetWriterHelper {
         String line;
         List<String> holder = new ArrayList<>();
         while ((line = reader.readLine()) != null) {
-            holder.add(line.trim());
-            writer.write(holder);
-            holder.clear();
+            if (isValidNumeric(line.trim())) {
+                holder.add(line.trim());
+                writer.write(holder);
+                holder.clear();
+            }
         }
 
         reader.close();

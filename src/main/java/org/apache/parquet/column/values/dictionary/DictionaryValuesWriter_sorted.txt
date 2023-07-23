@@ -18,6 +18,7 @@
  *
  * Contributors:
  *     Hao Jiang - initial API and implementation
+ *     Chunwei Liu - init double op property
  */
 package org.apache.parquet.column.values.dictionary;
 
@@ -280,6 +281,7 @@ public abstract class DictionaryValuesWriter extends ValuesWriter implements Req
         @Override
         protected void sortDictionary() {
             // Sort the entry in dictionary content and re-encode the entries
+            System.out.println("Sort the binary dictionary");
             Object[] sorted = binaryDictionaryContent.keySet().toArray();
             Arrays.sort(sorted);
             Int2IntMap mapping = new Int2IntOpenHashMap();
@@ -483,6 +485,29 @@ public abstract class DictionaryValuesWriter extends ValuesWriter implements Req
         }
 
         @Override
+        protected void sortDictionary() {
+            System.out.println("Sort the double dictionary");
+            Double2IntMap newDoubleDictionaryContent = new Double2IntLinkedOpenHashMap();
+            Int2IntMap mapping = new Int2IntOpenHashMap();
+
+            double[] sorted = doubleDictionaryContent.keySet().toDoubleArray();
+            Arrays.sort(sorted);
+            for (int i = 0; i < sorted.length; i++) {
+                mapping.put(doubleDictionaryContent.get(sorted[i]), i);
+                newDoubleDictionaryContent.put(sorted[i], i);
+            }
+
+            doubleDictionaryContent = newDoubleDictionaryContent;
+
+            IntList newEncodedValues = new IntList();
+            IntIterator it = encodedValues.iterator();
+            while (it.hasNext()) {
+                newEncodedValues.add(mapping.get(it.next()));
+            }
+            encodedValues = newEncodedValues;
+        }
+
+        @Override
         public DictionaryPage toDictPageAndClose() {
             if (lastUsedDictionarySize > 0) {
                 // return a dictionary only if we actually used it
@@ -555,6 +580,8 @@ public abstract class DictionaryValuesWriter extends ValuesWriter implements Req
 
         @Override
         protected void sortDictionary() {
+
+            System.out.println("Sort the int dictionary");
             Int2IntMap newIntDictionaryContent = new Int2IntLinkedOpenHashMap();
             Int2IntMap mapping = new Int2IntOpenHashMap();
 

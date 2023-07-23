@@ -79,6 +79,58 @@ object TPCHSchema {
     new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.BINARY, "comment")
   )
 
+
+
+  val customer_demographicsSchema = new MessageType("customer_demographics",
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cd_demo_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.BINARY, "cd_gender"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.BINARY, "cd_marital_status"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.BINARY, "cd_education_status"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cd_purchase_estimate"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.BINARY, "cd_credit_rating"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cd_dep_count"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cd_dep_employed_count"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cd_dep_college_count")
+  )
+
+
+  val catalog_salesSchema = new MessageType("catalog_sales",
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_sold_date_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_sold_time_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_ship_date_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_bill_customer_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_bill_cdemo_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_bill_hdemo_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_bill_addr_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_ship_customer_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_ship_cdemo_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_ship_hdemo_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_ship_addr_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_call_center_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_catalog_page_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_ship_mode_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_warehouse_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_item_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_promo_sk"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT64, "cs_order_number"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.INT32, "cs_quantity"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.DOUBLE, "cs_wholesale_cost"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.DOUBLE, "cs_list_price"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.DOUBLE, "cs_sales_price"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.DOUBLE, "cs_ext_discount_amt"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.DOUBLE, "cs_ext_sales_price"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.DOUBLE, "cs_ext_wholesale_cost"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.DOUBLE, "cs_ext_list_price"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.DOUBLE, "cs_ext_tax"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.DOUBLE, "cs_coupon_amt"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.DOUBLE, "cs_ext_ship_cost"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.DOUBLE, "cs_net_paid"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.DOUBLE, "cs_net_paid_inc_tax"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.DOUBLE, "cs_net_paid_inc_ship"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.DOUBLE, "cs_net_paid_inc_ship_tax"),
+    new PrimitiveType(Repetition.REQUIRED, PrimitiveTypeName.DOUBLE, "cs_net_profit")
+  )
+
   val lineitemOptSchema = new MessageType("lineitem",
     new PrimitiveType(Repetition.OPTIONAL, PrimitiveTypeName.INT32, "order_key"),
     new PrimitiveType(Repetition.OPTIONAL, PrimitiveTypeName.INT32, "part_key"),
